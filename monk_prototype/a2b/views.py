@@ -1,8 +1,9 @@
-#from django.shortcuts import render
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import urllib2
 import json
 from models import Stop
+from forms import FromStop
 
 # Create your views here.
 
@@ -27,3 +28,8 @@ def update_success(request):
 
 def update_error(request):
 	return HttpResponse('Error. No stop list found.')
+
+def search_routes(request):
+	form = FromStop()
+	return render(request,'a2b/search_routes.html',{'form': form})
+

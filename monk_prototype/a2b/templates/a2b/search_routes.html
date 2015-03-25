@@ -1,0 +1,30 @@
+
+{% block content%} 
+<div id="content" align="left">                
+    <h2> Welcome! Please select your stop </h2> 
+    <form action="" method="get">
+
+		<label for="id_from_stop">Traveling from:</label> 
+		<select id="id_from_stop" name="stop_list_field">         
+		{% for choice in form.fields.from_stop.choices %}
+			<option value="{{choice.0}}">{{choice.1}}</option> 
+		{% endfor %} 
+		</select> <br />
+
+		<br /> 
+
+		<label for="id_to_stop">Traveling to:</label> 
+		<select id="id_to_stop" name="stop_list_field">         
+		{% for choice in form.fields.from_stop.choices %}
+			<option value="{{choice.0}}">{{choice.1}}</option> 
+		{% endfor %} 
+		</select> <br />
+
+		</form>
+
+</div>
+
+<div id="bottom">
+
+</div>
+{% endblock %}
