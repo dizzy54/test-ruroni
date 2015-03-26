@@ -1,5 +1,10 @@
+{% block content%}
 
-{% block content%} 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
 <div id="content" align="left">                
     <h2> Welcome! Please select your stop </h2> 
     <form action="" method="get">
@@ -23,6 +28,47 @@
 		</form>
 
 </div>
+
+<input type="button" value="Find routes" onclick="find_routes()" />
+
+<table style="width: 100%">
+     <thead>
+          <tr align=left>
+               <th>Id</th>
+               <th>Short Name</th>
+               <th>Long Name</th>
+           </tr>
+     </thead>
+     <tbody id="tbody">
+     </tbody>
+</table>
+
+<script>
+jQuery.ajaxSettings.traditional = true;
+function find_routes() {
+	$('#tbody').html("");
+
+    $.ajax({
+        type: "GET",
+        data: {
+        	hasStop: [$('#id_from_stop').val(), $('#id_to_stop').val()]
+        },
+        dataType: 'json',
+        url: "http://localhost:8080/otp/routers/default/index/routes",
+        success: function(data){
+            $.each(data, function(idx, obj) {
+            	console.log($('#id_from_stop').val(), $('#id_to_stop').val());
+				var eachrow = "<tr>"
+	                 + "<td>" + obj.id + "</td>"
+	                 + "<td>" + obj.shortName + "</td>"
+	                 + "<td>" + obj.longName + "</td>"
+	                 + "</tr>";
+	            $('#tbody').append(eachrow);
+			});
+        }
+    });
+}
+</script>
 
 <div id="bottom">
 
